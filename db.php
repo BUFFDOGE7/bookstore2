@@ -1,9 +1,10 @@
 <?php
+$config = require __DIR__ . '/config.php';
 
 $pdo = new PDO(
-    'mysql:host=127.0.0.1;dbname=bookstore;charset=utf8mb4',
-    'root',
-    '',
+    "mysql:host={$config['host']};dbname={$config['database']};charset={$config['charset']}",
+    $config['username'],
+    $config['password'],
     [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
