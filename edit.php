@@ -105,68 +105,100 @@ if ($book) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Book</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
+<body class="scheme-light min-h-screen bg-slate-100 text-slate-900 antialiased dark:scheme-dark dark:bg-slate-950 dark:text-slate-100">
+<main class="mx-auto max-w-3xl space-y-6 px-4 py-10 sm:px-6">
 <?php if (!$book): ?>
-    <h1>Book Not Found</h1>
-    <a href="index.php">Back to the book list</a>
+    <section class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h1 class="text-2xl font-bold">Book Not Found</h1>
+        <a class="mt-4 inline-block font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400" href="index.php">Back to the book list</a>
+    </section>
 <?php else: ?>
-    <h1>Edit Book</h1>
-    <?php if ($error): ?><p style="color: red"><?= e($error) ?></p><?php endif; ?>
-    <?php if (isset($_GET['updated'])): ?><p>Book details saved.</p><?php endif; ?>
-    <?php if (isset($_GET['author_added'])): ?><p>Author added to the book.</p><?php endif; ?>
-    <?php if (isset($_GET['author_removed'])): ?><p>Author removed from the book.</p><?php endif; ?>
-    <form method="post" action="edit.php?id=<?= $id ?>">
+    <header>
+        <a class="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400" href="index.php">← Back to the book list</a>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight">Edit Book</h1>
+    </header>
+
+    <?php if ($error): ?><p class="rounded-lg border border-rose-300 bg-rose-50 px-4 py-3 text-rose-800 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200" role="alert"><?= e($error) ?></p><?php endif; ?>
+    <?php if (isset($_GET['updated'])): ?><p class="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200" role="status">Book details saved.</p><?php endif; ?>
+    <?php if (isset($_GET['author_added'])): ?><p class="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200" role="status">Author added to the book.</p><?php endif; ?>
+    <?php if (isset($_GET['author_removed'])): ?><p class="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-3 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200" role="status">Author removed from the book.</p><?php endif; ?>
+
+    <form class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900" method="post" action="edit.php?id=<?= $id ?>">
         <input type="hidden" name="action" value="save_book">
-        <p>Title: <input name="title" value="<?= e($book['title']) ?>" required></p>
-        <p>Publication Year: <input name="release_date" type="number" min="1901" max="2155" step="1" value="<?= e($book['release_date']) ?>" required></p>
-        <p>Cover Image URL: <input name="cover_path" value="<?= e($book['cover_path']) ?>"></p>
-        <p>Language: <input name="language" value="<?= e($book['language']) ?>" required></p>
-        <p>Summary: <textarea name="summary"><?= e($book['summary']) ?></textarea></p>
-        <p>Price: <input name="price" type="number" min="0" step="0.01" value="<?= number_format($book['price'], 2, '.', '') ?>" required></p>
-        <p>Stock: <input name="stock_saldo" value="<?= e($book['stock_saldo']) ?>" required></p>
-        <p>Pages: <input name="pages" type="number" min="1" value="<?= e($book['pages']) ?>" required></p>
-        <p>Type:
-            <select name="type">
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Title
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="title" value="<?= e($book['title']) ?>" required>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Publication Year
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="release_date" type="number" min="1901" max="2155" step="1" value="<?= e($book['release_date']) ?>" required>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Cover Image URL
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="cover_path" value="<?= e($book['cover_path']) ?>">
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Language
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="language" value="<?= e($book['language']) ?>" required>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Summary
+            <textarea class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="summary" rows="4"><?= e($book['summary']) ?></textarea>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Price (€)
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="price" type="number" min="0" step="0.01" value="<?= number_format($book['price'], 2, '.', '') ?>" required>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Stock
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="stock_saldo" value="<?= e($book['stock_saldo']) ?>" required>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Pages
+            <input class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="pages" type="number" min="1" value="<?= e($book['pages']) ?>" required>
+        </label>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Type
+            <select class="mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="type">
                 <?php foreach ($types as $type): ?>
                     <option value="<?= $type ?>" <?= $book['type'] === $type ? 'selected' : '' ?>><?= $type ?></option>
                 <?php endforeach; ?>
             </select>
-        </p>
-        <button type="submit">Save Changes</button>
-        <a href="book.php?id=<?= $id ?>">Cancel</a>
+        </label>
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button class="rounded-lg bg-indigo-600 px-5 py-2 font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400" type="submit">Save Changes</button>
+            <a class="rounded-lg px-4 py-2 font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="book.php?id=<?= $id ?>">Cancel</a>
+        </div>
     </form>
 
-    <h2>Authors</h2>
-    <?php if ($bookAuthors): ?>
-        <?php foreach ($bookAuthors as $author): ?>
-            <div>
-                <?= e($author['first_name'] . ' ' . $author['last_name']) ?>
-                <form method="post" action="edit.php?id=<?= $id ?>">
-                    <input type="hidden" name="action" value="remove_author">
-                    <input type="hidden" name="author_id" value="<?= $author['id'] ?>">
-                    <button type="submit">Remove Author</button>
-                </form>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No authors are assigned to this book.</p>
-    <?php endif; ?>
-
-    <?php if ($availableAuthors): ?>
-        <form method="post" action="edit.php?id=<?= $id ?>">
-            <input type="hidden" name="action" value="add_author">
-            <label for="author_id">Add an author:</label>
-            <select name="author_id" id="author_id" required>
-                <?php foreach ($availableAuthors as $author): ?>
-                    <option value="<?= $author['id'] ?>"><?= e($author['first_name'] . ' ' . $author['last_name']) ?></option>
+    <section class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h2 class="text-xl font-semibold">Authors</h2>
+        <?php if ($bookAuthors): ?>
+            <ul class="divide-y divide-slate-200 dark:divide-slate-800">
+                <?php foreach ($bookAuthors as $author): ?>
+                    <li class="flex items-center justify-between gap-4 py-3">
+                        <span><?= e($author['first_name'] . ' ' . $author['last_name']) ?></span>
+                        <form method="post" action="edit.php?id=<?= $id ?>">
+                            <input type="hidden" name="action" value="remove_author">
+                            <input type="hidden" name="author_id" value="<?= $author['id'] ?>">
+                            <button class="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800" type="submit">Remove</button>
+                        </form>
+                    </li>
                 <?php endforeach; ?>
-            </select>
-            <button type="submit">Add Author</button>
-        </form>
-    <?php else: ?>
-        <p>There are no more authors available to add.</p>
-    <?php endif; ?>
+            </ul>
+        <?php else: ?>
+            <p class="text-sm text-slate-500 dark:text-slate-400">No authors are assigned to this book.</p>
+        <?php endif; ?>
+
+        <?php if ($availableAuthors): ?>
+            <form class="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800 sm:flex-row" method="post" action="edit.php?id=<?= $id ?>">
+                <input type="hidden" name="action" value="add_author">
+                <label class="sr-only" for="author_id">Add an author</label>
+                <select class="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" name="author_id" id="author_id" required>
+                    <?php foreach ($availableAuthors as $author): ?>
+                        <option value="<?= $author['id'] ?>"><?= e($author['first_name'] . ' ' . $author['last_name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button class="rounded-lg bg-indigo-600 px-5 py-2 font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400" type="submit">Add Author</button>
+            </form>
+        <?php else: ?>
+            <p class="border-t border-slate-200 pt-4 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">There are no more authors available to add.</p>
+        <?php endif; ?>
+    </section>
 <?php endif; ?>
+</main>
 </body>
 </html>
