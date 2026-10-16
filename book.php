@@ -6,7 +6,7 @@ $book = false;
 $authors = [];
 
 if ($id > 0) {
-    $query = $pdo->prepare('SELECT * FROM books WHERE id = ?');
+    $query = $pdo->prepare('SELECT * FROM books WHERE id = ? AND is_deleted = 0');
     $query->execute([$id]);
     $book = $query->fetch();
 
@@ -48,7 +48,9 @@ foreach ($authors as $author) {
     <p><b>Pages:</b> <?= e($book['pages']) ?></p>
     <p><b>Summary:</b> <?= nl2br(e($book['summary'] ?: 'No description available')) ?></p>
     <p><a href="edit.php?id=<?= $book['id'] ?>">Edit Book</a></p>
-    <p><a href="delete.php?id=<?= $book['id'] ?>">Delete Book</a></p>
+    <form method="post" action="delete.php?id=<?= $book['id'] ?>" onsubmit="return confirm('Delete this book?')">
+        <button type="submit">Delete Book</button>
+    </form>
 <?php endif; ?>
     <p><a href="index.php">Back to the book list</a></p>
 </body>
