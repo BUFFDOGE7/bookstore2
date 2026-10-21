@@ -100,14 +100,17 @@ if ($book) {
 }
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Book</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:where(.dark, .dark *));
+    </style>
 </head>
-<body class="scheme-light min-h-screen bg-slate-100 text-slate-900 antialiased dark:scheme-dark dark:bg-slate-950 dark:text-slate-100">
+<body class="scheme-dark min-h-screen bg-slate-950 text-slate-100 antialiased">
 <main class="mx-auto max-w-3xl space-y-6 px-4 py-10 sm:px-6">
 <?php if (!$book): ?>
     <section class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">

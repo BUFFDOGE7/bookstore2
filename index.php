@@ -6,21 +6,24 @@ $query->execute(['%' . $search . '%']);
 $books = $query->fetchAll();
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book List</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:where(.dark, .dark *));
+    </style>
 </head>
-<body class="scheme-light min-h-screen bg-slate-100 text-slate-900 antialiased dark:scheme-dark dark:bg-slate-950 dark:text-slate-100">
+<body class="scheme-dark min-h-screen bg-slate-950 text-slate-100 antialiased">
     <main class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
         <header class="mb-8 flex items-center justify-between gap-4">
             <div>
                 <p class="text-sm font-medium uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Bookstore</p>
                 <h1 class="mt-1 text-3xl font-bold tracking-tight">Book List</h1>
             </div>
-            <a class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400" href="add_author.php">Add Author</a>
+            <a class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400" href="add%20author.php">Add Author</a>
         </header>
 
         <form class="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900" method="get" action="index.php">

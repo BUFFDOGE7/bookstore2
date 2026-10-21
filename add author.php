@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $query = $pdo->prepare('INSERT INTO authors (first_name, last_name) VALUES (?, ?)');
         $query->execute([$firstName, $lastName]);
-        header('Location: add_author.php?added=1');
+        header('Location: add%20author.php?added=1');
         exit;
     }
 }
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($error !== ''): ?>
         <p role="alert"><?= e($error) ?></p>
     <?php endif; ?>
-    <form method="post" action="add_author.php">
+    <form method="post" action="add%20author.php">
         <p>First Name: <input name="first_name" maxlength="45" value="<?= e($firstName) ?>" required></p>
         <p>Last Name: <input name="last_name" maxlength="45" value="<?= e($lastName) ?>" required></p>
         <button type="submit">Add Author</button>
